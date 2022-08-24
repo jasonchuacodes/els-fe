@@ -1,31 +1,22 @@
 import React, { useState } from 'react'
 
-interface IUser {
+type UserContextType = {
+  loginStatus: boolean,
+  setLoginStatus: (value: boolean) => void;
 }
 
-interface IUserDispatchContext {
-}
+// step1 create the context
+export const UserContext = React.createContext<UserContextType | null>(null);
 
-interface IChildren {
-  children: React.ReactNode;
-}
+// step 2 create the provider and set the values to be passed to the components
+export const UserProvider = ({children}: any) => {
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
 
-export const UserContext = React.createContext<IUser | null>(null);
-export const UserDispatchContext = React.createContext<IUserDispatchContext | null>(null);
-
-const UserProvider = ({ children }: IChildren) => {
-  const [loginStatus, setLoginStatus] = useState(false);
-
-  const updateLoginStatus = () => {
-    setLoginStatus(true);
-  };
   return (
-    <UserContext.Provider value={loginStatus}>
-      <UserDispatchContext.Provider value={updateLoginStatus}>
-        {children}
-      </UserDispatchContext.Provider>
+    <UserContext.Provider value={{ loginStatus, setLoginStatus }}>  
+      {children}
     </UserContext.Provider>
-  );
-};
-
-export default UserProvider;
+  )
+}
+// step 3 -> expose the context by wrapping the parent component with the provider
+// step 4 -> you may now use the context with `useContext` inside the components after importing  

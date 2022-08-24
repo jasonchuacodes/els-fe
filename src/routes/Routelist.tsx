@@ -9,7 +9,9 @@ import Profile from "../page/Profile/Profile";
 import { UserContext } from "../context/UserContext";
 
 const RouteList = () => {
-  const loginStatus = useContext(UserContext);
+  const context = useContext(UserContext);
+
+  const loginStatus = context?.loginStatus;
   
   return (
     <>

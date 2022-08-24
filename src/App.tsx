@@ -1,5 +1,5 @@
-import Routes from './routes/index';
-import UserProvider from './context/UserContext';
+import Routes from './routes/Routelist';
+import { UserProvider } from './context/UserContext'
 
 function App() {
   return (
