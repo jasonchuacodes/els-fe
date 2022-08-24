@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+
 
 function Login() {
+  const context = useContext(UserContext)
+  
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    context?.setLoginStatus(!context.loginStatus)
+    
   };
-
+  
   return (
     <div className="mt-20 w-1/2 m-auto">
       <div className="mb-3">WELCOME! Please Login to enter.</div>
