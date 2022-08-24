@@ -7,6 +7,7 @@ import Register from "../page/Register/Register";
 import Dashboard from "../page/Dashboard";
 import Profile from "../page/Profile/Profile";
 import { UserContext } from "../context/UserContext";
+import VerifyEmail from "../page/VerifyEmail/VerifyEmail";
 
 const RouteList = () => {
   const context = useContext(UserContext);
@@ -30,6 +31,7 @@ const RouteList = () => {
             <Route path="/" element={<Navigate to="/login" />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
+            <Route path="/verify-email" element={<VerifyEmail />}></Route>
             <Route path="/error" element={<ErrorPage />}></Route>
             <Route path="*" element={<Navigate to="/error"></Navigate>}></Route>
           </>
