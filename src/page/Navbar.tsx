@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -16,9 +16,7 @@ function Navbar() {
           <div className="navbar__link">Logout</div>
         </div>
       </div>
-      <div className="h-full">
-        <Outlet />
-      </div>
+     
     </div>
   );
 }

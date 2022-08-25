@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import RegisterApi from '../../api/RegisterApi';
 
 interface IErrors {
@@ -11,10 +11,10 @@ interface IErrors {
 }
 
 function Register() {
-  const navigate = useNavigate();
   const [params, setParams] = useState({});
   const [errors, setErrors] = useState<IErrors | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [status, setStatus] = useState<string>('default');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setParams({ ...params, [e.target.name]: e.target.value });
@@ -22,29 +22,41 @@ function Register() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsLoading(true);
+
+    setStatus('submitting');
 
     RegisterApi.registerUser(params)
       .then((res) => {
-        setIsLoading(false);
-        navigate('/verify-email');
+        console.log(res);
+        setStatus('success');
       })
       .catch((err) => {
         const errorData = err.response.data.errors;
+        setStatus('default');
         setErrors(errorData);
-        setIsLoading(false);
       });
   };
 
   return (
-    <div className="mt-20 w-1/2 m-auto">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
+    <div className="flex flex-col h-screen items-center justify-center">
+      {status === 'success' && (
+        <div>
+          Thank you! Kindly verify your registration by clicking on the link we
+          have sent to your email.
+
+          <div className='flex items-center mt-2'>
+            Already verified? Click here to
+            <Link className="rounded-md border-2 bg-gray-600 text-white ml-1 px-2 py-1" to="/login">Login</Link>
+          </div>
+        </div>
+      )}
+      {status === 'submitting' && (
+        <div className="flex items-center h-screen">Loading...</div>
+      )}
+      {status === 'default' && (
         <>
-          <div className="mb-3">
-            WELCOME! <br />
-            Please input data below:
+          <div className="font-bold text-xl mb-3">
+            REGISTER
           </div>
           <form
             className="bg-gray-100 mb-4 p-2"
