@@ -1,12 +1,13 @@
-import Routes from './routes/Routelist';
-import { UserProvider } from './context/UserContext'
+import RouteList from './routes/Routelist';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
+
   return (
     <div className="App container mx-auto w-screen h-vh">
-      <UserProvider>
-        <Routes />
-      </UserProvider>
+        <Router>
+          <RouteList />
+        </Router>
     </div>
   );
 }

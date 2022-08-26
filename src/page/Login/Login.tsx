@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import LoginApi from '../../api/LoginApi';
 import Cookies from 'js-cookie';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthApi from '../../api/AuthApi';
 
 function Login() {
+  const navigate = useNavigate();
   const [params, setParams] = useState({});
   const [errors, setErrors] = useState();
 
@@ -21,13 +22,15 @@ function Login() {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    LoginApi.login(params)
+    AuthApi.login(params)
       .then((res) => {
-        console.log(res);
-        Cookies.set('login_token', res.data.token);
+        const accessToken = res.data.token
+        Cookies.set('user', JSON.stringify(res.data.user));
+        Cookies.set('access_token', accessToken);
+        navigate('/profile');
       })
       .catch((err) => {
-        console.log(err);
+        setErrors(err.response.data.errors)
       });
   };
 
@@ -43,7 +46,7 @@ function Login() {
           type="text"
           placeholder="Email"
           onChange={handleChange}
-        />
+          />
         <label htmlFor="password">Password</label>
         <div className="text-red-700 text-xs italic">
           {errors?.['password']}
@@ -51,7 +54,7 @@ function Login() {
         <input
           className="indent-2 mb-4 border-2 rounded w-full"
           name="password"
-          type="text"
+          type="password"
           placeholder="Password"
           onChange={handleChange}
         />
