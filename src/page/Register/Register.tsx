@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import RegisterApi from '../../api/RegisterApi';
-
+import AuthApi from '../../api/AuthApi';
 interface IErrors {
   first_name: string;
   last_name: string;
@@ -11,7 +10,13 @@ interface IErrors {
 }
 
 function Register() {
-  const [params, setParams] = useState({});
+  const [params, setParams] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+  });
   const [errors, setErrors] = useState<IErrors | null>(null);
 
   const [status, setStatus] = useState<string>('default');
@@ -25,9 +30,8 @@ function Register() {
 
     setStatus('submitting');
 
-    RegisterApi.registerUser(params)
+    AuthApi.register(params)
       .then((res) => {
-        console.log(res);
         setStatus('success');
       })
       .catch((err) => {
@@ -60,7 +64,7 @@ function Register() {
           </div>
           <form
             className="bg-gray-100 mb-4 p-2"
-            action=""
+            action="POST"
             onSubmit={handleSubmit}
           >
             <label htmlFor="firstName">First Name</label>
@@ -72,6 +76,7 @@ function Register() {
               name="first_name"
               type="text"
               placeholder="First name"
+              value={params.first_name}
               onChange={handleChange}
             />
             <label htmlFor="lastName">Last Name</label>
@@ -83,6 +88,7 @@ function Register() {
               name="last_name"
               type="text"
               placeholder="Last Name"
+              value={params.last_name}
               onChange={handleChange}
             />
             <label htmlFor="email">Email</label>
@@ -94,6 +100,7 @@ function Register() {
               name="email"
               type="text"
               placeholder="Email"
+              value={params.email}
               onChange={handleChange}
             />
             <label htmlFor="password">Password</label>
@@ -105,6 +112,7 @@ function Register() {
               name="password"
               type="password"
               placeholder="Password"
+              value={params.password}
               onChange={handleChange}
             />
             <label htmlFor="passwordConfirmation">Confirm Password</label>
@@ -113,9 +121,10 @@ function Register() {
             </div>
             <input
               className="indent-2 mb-4 border-2 rounded w-full"
-              name="password_confirmation"
+              name="confirm_password"
               type="password"
               placeholder="Confirm Password"
+              value={params.confirm_password}
               onChange={handleChange}
             />
 
