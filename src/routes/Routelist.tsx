@@ -20,9 +20,8 @@ const RouteList = () => {
         {/* user protected routes */}
         <Route element={<ProtectedRoute userRole="user" />}>
           <Route element={<Navbar />}>
-            <Route path="/" element={<Home />}>
-              <Route path="profile" element={<Profile />}></Route>
-            </Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="profile" element={<Profile />}></Route>
           </Route>
         </Route>
 

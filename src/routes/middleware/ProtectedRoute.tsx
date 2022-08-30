@@ -9,7 +9,6 @@ const ProtectedRoute = ({userRole} : {userRole: string}) => {
   const user = (userData === undefined ? false : (userData?.is_admin ? false : 'user'))
   const admin = userData?.is_admin ? 'admin' : false;
 
-
   //if user doesn't exist, navigate back to login
   if (user === admin) {
     return <Navigate to="/login" />;

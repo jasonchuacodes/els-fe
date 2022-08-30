@@ -31,7 +31,9 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <Outlet />
+      <div className='mt-10'>
+        <Outlet />
+      </div>
     </div>
   );
 }
