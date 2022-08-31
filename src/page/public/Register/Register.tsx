@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthApi from '../../api/AuthApi';
+import AuthApi from '../../../api/AuthApi';
+
 interface IErrors {
   first_name: string;
   last_name: string;
