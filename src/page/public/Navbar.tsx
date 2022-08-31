@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import AuthApi from '../api/AuthApi';
+import AuthApi from '../../api/AuthApi';
+import { UserContext, UserContextType } from '../../context/UserContext';
 
 function Navbar() {
   const navigate = useNavigate();
-  const token = Cookies.get('access_token'); 
+  const authUser = (Cookies.get('auth_user') && JSON.parse(Cookies.get('auth_user') || '{}'));
 
+  const { token } = React.useContext(UserContext) as UserContextType;
+  
   const logout = () => {
     AuthApi.logout(token)
+    Cookies.remove('auth_user');
     Cookies.remove('user');
     Cookies.remove('access_token');
     navigate('/login');
@@ -23,9 +27,11 @@ function Navbar() {
         </div>
         <div className="navbar__links flex w-1/2 justify-evenly ">
           <div className="navbar__link">
-            <Link to="/profile">Profile</Link>
+            <button onClick={() => navigate(`/profile/${authUser.id}`)}>My Profile</button>
           </div>
-          <div className="navbar__link">Link 2</div>
+          <div className="navbar__link">
+            <Link to="/dashboard">Dashboard</Link>
+          </div>
           <div className="navbar__link">
             <button className="bg-white rounded px-2" onClick={logout}>Logout</button>  
           </div>

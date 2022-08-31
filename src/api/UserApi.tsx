@@ -1,16 +1,19 @@
 import instance from './instance'
 
-interface IUser {
-  id: number,
-  token: any
-}
-
 const UserApi = {
-  getUser: (id:number, token:string | undefined) => {
+  fetchUser: (id:number | undefined, token:string | undefined) => {
     const config = {
       method: 'GET',
-      url: `/profile/${id}`,
+      url: `/users/${id}`,
       headers: {Authorization: `Bearer ${token}`}
+    }
+    return instance.request(config);
+  },
+  fetchUsers: () => {
+    const config = {
+      method: 'GET',
+      url: `/users`,
+      // headers: {Authorization: `Bearer ${token}`}
     }
     return instance.request(config);
   }
