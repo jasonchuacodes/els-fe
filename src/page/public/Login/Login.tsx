@@ -1,9 +1,7 @@
 import Cookies from 'js-cookie';
 import React, { useState } from 'react';
-import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthApi from '../../../api/AuthApi';
-import { UserContext, UserContextType } from '../../../context/UserContext';
 
 export interface IEvent {
   target: {
@@ -17,8 +15,6 @@ const Login = () =>{
   const [params, setParams] = useState({});
   const [errors, setErrors] = useState();
 
-  const { setToken } = useContext(UserContext) as UserContextType;
-
   const handleChange = (e: IEvent) => {
     setParams({ ...params, [e.target.name]: e.target.value });
   };
@@ -30,7 +26,6 @@ const Login = () =>{
       .then((res) => {
         Cookies.set('auth_user', JSON.stringify(res.data.user));
         Cookies.set('access_token', res.data.token);
-        setToken(res.data.token);
         navigate(`/profile/${res.data.user.id}`);
       })
       .catch((err) => {

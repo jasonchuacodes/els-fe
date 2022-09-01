@@ -5,10 +5,9 @@ import DashboardCard from '../../../components/DashboardCard/DashboardCard';
 import { UserContext, UserContextType } from '../../../context/UserContext';
 
 const Dashboard = () => {
-  const { users, fetchUsers } = useContext(UserContext) as UserContextType;
   const userData = (Cookies.get('user') && JSON.parse(Cookies.get('user') || '{}'));
-
   const image = require('../../../assets/images/man.jpg');
+  const { users, fetchUsers } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
     fetchUsers();

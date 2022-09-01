@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+
 import { UserContext, UserContextType, UserDataType} from '../../context/UserContext';
 interface IProfileCard {
   authUser: UserDataType;
@@ -7,14 +9,15 @@ interface IProfileCard {
   image?: string;
   followers: number;
   followings: number;
+  isFollowing?: boolean
+  setIsFollowing: (value: boolean) => void;
 }
 
-const ProfileCard = ({ authUser, user,  image, followers, followings }: IProfileCard) => {
+const ProfileCard = ({ authUser, user,  image, followers, followings , isFollowing, setIsFollowing }: IProfileCard) => {
 
-  const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const { follow, unfollow } = React.useContext(UserContext) as UserContextType;
+  const token = Cookies.get('access_token');
 
-  const { follow, unfollow, token } = React.useContext(UserContext) as UserContextType;
-  
   const handleFollow = () => {
     if (!isFollowing) {
       follow(user.id, token)

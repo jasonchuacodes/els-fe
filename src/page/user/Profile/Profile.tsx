@@ -26,6 +26,8 @@ const Profile = () => {
   const image = require('../../../assets/images/man.jpg');
   const [followers, setFollowers] = useState(0);
   const [followings, setFollowings] = useState(0);
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
+
   
   const authUser = (Cookies.get('auth_user') && JSON.parse(Cookies.get('auth_user') || '{}'));
   const token = Cookies.get('access_token');
@@ -42,6 +44,12 @@ const Profile = () => {
     FollowsApi.fetchFollowings(userId, token).then((res) => {
       setFollowings(res.data.followings);
     });
+    
+    if (userId !== authUser.id) {
+      FollowsApi.isFollowing(userId, token).then((res) => {
+        setIsFollowing(res.data)
+      })
+    }
   }, [id]);
 
   return (
@@ -55,6 +63,8 @@ const Profile = () => {
             image={image}
             followers={followers}
             followings={followings}
+            isFollowing={isFollowing}
+            setIsFollowing={setIsFollowing}
           />
         </div>
         <div className="w-2/3 border ml-5 p-5">

@@ -17,24 +17,36 @@ const FollowsApi = {
     };
     return instance.request(config);
   },
-  fetchFollowers: (id?: number, token?: string ) => {
+
+  isFollowing: (id: number, token?: string) => {
+    const config = {
+      method: 'GET',
+      url: `/${id}/is-following`,
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    return instance.request(config);
+  },
+
+  fetchFollowers: (id?: number, token?: string) => {
     const config = {
       method: 'GET',
       url: `/${id}/followers`,
-      headers: { Authorization: `Bearer ${token}` }
-    }
+      headers: { Authorization: `Bearer ${token}` },
+    };
     return instance.request(config);
   },
+  
   fetchFollowings: (id?: number, token?: string) => {
     const config = {
       method: 'GET',
       url: `/${id}/followings`,
       headers: {
-        Authorization: `Bearer ${ token }`
-      }
-    }
+
+        Authorization: `Bearer ${token}`,
+      },
+    };
     return instance.request(config);
-  }
+  },
 };
 
 export default FollowsApi;

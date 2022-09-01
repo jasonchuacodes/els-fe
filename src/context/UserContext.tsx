@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import React, { createContext, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import AuthApi from '../api/AuthApi';
+import { NumericLiteral } from 'typescript';
 import FollowsApi from '../api/FollowsApi';
 import UserApi from '../api/UserApi';
 
@@ -17,6 +16,7 @@ export interface UserContextType {
   fetchUsers: () => void;
   follow: (id?:number, token?:string) => void;
   unfollow: (id?:number, token?:string) => void;
+  isFollowing: (id: number, token: string) => void;
 };
 
 export type UserDataType = {
@@ -46,16 +46,9 @@ export type UsersDataType = {
 export const UserContext = createContext<UserContextType | null>(null);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [token, setToken] = React.useState<string | undefined>('');
   const [authUser, setAuthUser] = React.useState<UserDataType>({});
   const [user, setUser] = React.useState<UserDataType>({});
   const [users, setUsers] = React.useState<UsersDataType>([]);
-
-  useEffect(() => {
-    if(Cookies.get('access_token')) {
-      setToken(Cookies.get('access_token'))
-    }
-  }, [])
 
   const fetchUser = (id?: number, token?: string) =>
     UserApi.fetchUser(id, token).then((res) => {
@@ -67,6 +60,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     UserApi.fetchUsers().then((res) => {
       setUsers(res.data);
     });
+
+  const isFollowing = (id: number, token:string) => {
+    FollowsApi.isFollowing(id, token)
+  }
 
 
   const follow = (id?: number, token?: string) => {
@@ -82,13 +79,12 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         authUser,
         user,
-        token,
-        setToken,
         users,
         fetchUser,
         fetchUsers,
         follow, 
         unfollow,
+        isFollowing,
       }}
     >
       {children}
