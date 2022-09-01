@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import ErrorPage from '../page/ErrorPage';
-import Login from '../page/Login/Login';
-import Register from '../page/Register/Register';
-import Profile from '../page/Profile/Profile';
-import Navbar from '../page/Navbar';
-
-import Home from '../page/Home/Home';
-import AdminPage from '../page/AdminPage/AdminPage';
 import ProtectedRoute from './middleware/ProtectedRoute';
+import Login from '../page/public/Login/Login';
+import Register from '../page/public/Register/Register';
+import Navbar from '../page/public/Navbar';
+import Home from '../page/public/Home/Home';
+import Profile from '../page/user/Profile/Profile';
+import AdminPage from '../page/admin/AdminPage/AdminPage';
+import ErrorPage from '../page/public/ErrorPage';
+import Dashboard from '../page/user/Dashboard/Dashboard';
 
 const RouteList = () => {
   return (
@@ -21,7 +21,8 @@ const RouteList = () => {
         <Route element={<ProtectedRoute userRole="user" />}>
           <Route element={<Navbar />}>
             <Route path="/" element={<Home />}></Route>
-            <Route path="profile" element={<Profile />}></Route>
+            <Route path="profile/:id" element={<Profile />}></Route>
+            <Route path="dashboard" element={<Dashboard />}></Route>
           </Route>
         </Route>
 

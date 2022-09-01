@@ -1,19 +1,19 @@
 import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthApi from '../../api/AuthApi';
+import AuthApi from '../../../api/AuthApi';
 
-function Login() {
+export interface IEvent {
+  target: {
+    name: string;
+    value: string;
+  };
+}
+
+const Login = () =>{
   const navigate = useNavigate();
   const [params, setParams] = useState({});
   const [errors, setErrors] = useState();
-
-  interface IEvent {
-    target: {
-      name: string;
-      value: string;
-    };
-  }
 
   const handleChange = (e: IEvent) => {
     setParams({ ...params, [e.target.name]: e.target.value });
@@ -24,13 +24,12 @@ function Login() {
 
     AuthApi.login(params)
       .then((res) => {
-        const accessToken = res.data.token
-        Cookies.set('user', JSON.stringify(res.data.user));
-        Cookies.set('access_token', accessToken);
-        navigate('/profile');
+        Cookies.set('auth_user', JSON.stringify(res.data.user));
+        Cookies.set('access_token', res.data.token);
+        navigate(`/profile/${res.data.user.id}`);
       })
       .catch((err) => {
-        setErrors(err.response.data.errors)
+        setErrors(err.response.data.errors);
       });
   };
 
@@ -39,18 +38,18 @@ function Login() {
       <div className="font-bold text-xl mb-3">LOGIN</div>
       <form className="bg-gray-100 mb-4 p-2" action="" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <div className="text-red-700 text-xs italic">{errors?.['email']}</div>
+        <div className="text-red-700 text-xs italic">
+          {errors?.['password']}
+        </div>
         <input
           className="indent-2 mb-4 border-2 rounded w-full"
           name="email"
           type="text"
           placeholder="Email"
           onChange={handleChange}
-          />
+        />
         <label htmlFor="password">Password</label>
-        <div className="text-red-700 text-xs italic">
-          {errors?.['password']}
-        </div>
+        <div className="text-red-700 text-xs italic">{errors?.['email']}</div>
         <input
           className="indent-2 mb-4 border-2 rounded w-full"
           name="password"
