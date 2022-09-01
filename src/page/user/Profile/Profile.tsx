@@ -27,6 +27,7 @@ const Profile = () => {
   const [followers, setFollowers] = useState(0);
   const [followings, setFollowings] = useState(0);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
+
   
   const authUser = (Cookies.get('auth_user') && JSON.parse(Cookies.get('auth_user') || '{}'));
   const token = Cookies.get('access_token');

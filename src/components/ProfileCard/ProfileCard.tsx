@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
+
 import { UserContext, UserContextType, UserDataType} from '../../context/UserContext';
 interface IProfileCard {
   authUser: UserDataType;

@@ -17,6 +17,7 @@ const FollowsApi = {
     };
     return instance.request(config);
   },
+
   isFollowing: (id: number, token?: string) => {
     const config = {
       method: 'GET',
@@ -34,11 +35,13 @@ const FollowsApi = {
     };
     return instance.request(config);
   },
+  
   fetchFollowings: (id?: number, token?: string) => {
     const config = {
       method: 'GET',
       url: `/${id}/followings`,
       headers: {
+
         Authorization: `Bearer ${token}`,
       },
     };

@@ -65,6 +65,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     FollowsApi.isFollowing(id, token)
   }
 
+
   const follow = (id?: number, token?: string) => {
     FollowsApi.follow(id, token);
   };
