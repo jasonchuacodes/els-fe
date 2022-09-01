@@ -38,9 +38,7 @@ const Login = () =>{
       <div className="font-bold text-xl mb-3">LOGIN</div>
       <form className="bg-gray-100 mb-4 p-2" action="" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <div className="text-red-700 text-xs italic">
-          {errors?.['password']}
-        </div>
+        <div className="text-red-700 text-xs italic">{errors?.['email']}</div>
         <input
           className="indent-2 mb-4 border-2 rounded w-full"
           name="email"
@@ -49,7 +47,7 @@ const Login = () =>{
           onChange={handleChange}
         />
         <label htmlFor="password">Password</label>
-        <div className="text-red-700 text-xs italic">{errors?.['email']}</div>
+        <div className="text-red-700 text-xs italic">{errors?.['password']}</div>
         <input
           className="indent-2 mb-4 border-2 rounded w-full"
           name="password"
@@ -57,7 +55,6 @@ const Login = () =>{
           placeholder="Password"
           onChange={handleChange}
         />
-
         <button
           className="rounded-md border-2 bg-gray-600 text-white px-4 py-2"
           type="submit"

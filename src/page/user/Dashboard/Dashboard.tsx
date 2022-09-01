@@ -1,17 +1,18 @@
 import Cookies from 'js-cookie';
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import DashboardCard from '../../../components/DashboardCard/DashboardCard';
+import ActivityCard from '../../../components/ActivityCard/ActivityCard';
 import { UserContext, UserContextType } from '../../../context/UserContext';
 
 const Dashboard = () => {
-  const userData = (Cookies.get('user') && JSON.parse(Cookies.get('user') || '{}'));
+  const userData =
+    Cookies.get('user') && JSON.parse(Cookies.get('user') || '{}');
   const image = require('../../../assets/images/man.jpg');
   const { users, fetchUsers } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
     fetchUsers();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -21,15 +22,13 @@ const Dashboard = () => {
           <DashboardCard user={userData} image={image} />
         </div>
         <div className="w-2/3 border ml-5 p-5">
-          <div className="font-bold italic mb-5">People</div>
+          <div className="font-bold italic mb-5">Activities</div>
           <div className="border w-full my-2"></div>
 
           {users?.map((user: any) => {
             return (
               <div key={user.id}>
-                <Link to={`/profile/${user.id}`}>
-                  {user.first_name} {user.last_name}
-                </Link>
+                <ActivityCard user={user} />
               </div>
             );
           })}
