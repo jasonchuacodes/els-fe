@@ -50,7 +50,7 @@ const Profile = () => {
         setIsFollowing(res.data)
       })
     }
-  }, [id]);
+  }, [id, isFollowing]);
 
   return (
     <>
@@ -68,7 +68,7 @@ const Profile = () => {
           />
         </div>
         <div className="w-2/3 border ml-5 p-5">
-          <div className="font-bold italic mb-5">Activies</div>
+          <div className="font-bold italic mb-5">Activities</div>
           <hr />
           <div className="flex flex-col justify-around">
             {activities.map((activity) => {
