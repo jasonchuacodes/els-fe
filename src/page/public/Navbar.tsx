@@ -8,8 +8,7 @@ import { UserContext, UserContextType } from '../../context/UserContext';
 function Navbar() {
   const navigate = useNavigate();
   const authUser = (Cookies.get('auth_user') && JSON.parse(Cookies.get('auth_user') || '{}'));
-
-  const { token } = React.useContext(UserContext) as UserContextType;
+  const token = Cookies.get('access_token');
   
   const logout = () => {
     AuthApi.logout(token)
