@@ -92,7 +92,7 @@ const Quiz = () => {
 
   return (
     <>
-      <SubmissionModal setIsShowModal={setIsShowModal} isShowModal={isShowModal} answers={answers} />
+      <SubmissionModal quizlogId={quizlog_id} setIsShowModal={setIsShowModal} isShowModal={isShowModal} answers={answers} />
 
       <div>
         <div className="text-lg font-bold mb-5">LESSON - {quiz?.title}</div>

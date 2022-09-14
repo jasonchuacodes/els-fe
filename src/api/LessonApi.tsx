@@ -63,7 +63,7 @@ const LessonApi = {
     };
     return instance.request(config);
   },
-  submitAnswers: (answers: AnswersProps, token: string | undefined) => {
+  submitAnswers: (answers: AnswersProps, token?: string ) => {
     const config = {
       method: 'POST',
       url: `save-all-answers`,
@@ -74,5 +74,18 @@ const LessonApi = {
     };
     return instance.request(config);
   },
+  fetchQuizResults: (quizlog_id: number, token?: string) => {
+    const config = {
+      method: 'GET',
+      url: `quiz-results`,
+      params: {
+        quizlog_id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return instance.request(config);
+  }
 };
 export default LessonApi;

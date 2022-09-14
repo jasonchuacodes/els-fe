@@ -7,21 +7,22 @@ const SubmissionModal = ({
   setIsShowModal,
   isShowModal,
   answers,
+  quizlogId,
 }: {
   setIsShowModal: (value: boolean) => void;
   isShowModal: boolean;
   answers: AnswersProps;
+  quizlogId: number;
 }) => {
   const navigate = useNavigate();
   const token = Cookies.get('access_token');
 
   const handleSubmit = () => {
-    Cookies.remove('answers');
-    Cookies.remove('quizlog_id');
-    Cookies.remove('quiz_id');
+    
 
     LessonApi.submitAnswers(answers, token);
-    navigate('/');
+    
+    navigate(`/${quizlogId}/results`);
   };
   const handleCancel = () => {
     setIsShowModal(false);
