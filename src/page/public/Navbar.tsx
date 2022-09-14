@@ -21,12 +21,15 @@ function Navbar() {
   return (
     <div>
       <div className="navbar flex items-center justify-between bg-gray-200 w-full h-16 px-4">
-        <div className="navbar__logo w-1/2  font-bold">
+        <div className="navbar__logo  text-lg font-bold">
           <Link to="/">E Learning</Link>
         </div>
-        <div className="navbar__links flex w-1/2 justify-evenly ">
+        <div className="navbar__links flex flex-1 text-sm justify-evenly ">
           <div className="navbar__link">
             <button onClick={() => navigate(`/profile/${authUser.id}`)}>My Profile</button>
+          </div>
+          <div className="navbar__link">
+            <Link to="/category">Categories</Link>
           </div>
           <div className="navbar__link">
             <Link to="/dashboard">Dashboard</Link>
