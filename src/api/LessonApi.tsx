@@ -1,10 +1,25 @@
 import instance from './instance';
 
+export type AnswersProps = {
+  choice_id: number,
+  quizlog_id: number,
+  question_id: number
+}[]
+
+
 const LessonApi = {
   fetchQuizzes: (token: string | undefined) => {
     const config = {
       method: 'GET',
       url: `/quiz/all`,
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    return instance.request(config);
+  },
+  fetchQuiz: (quiz_id: number, token: string | undefined) => {
+  const config = {
+    method: 'GET',
+      url: `/quiz/${quiz_id}`,
       headers: { Authorization: `Bearer ${token}` },
     };
     return instance.request(config);
@@ -35,7 +50,7 @@ const LessonApi = {
   },
   fetchQuestionsWithChoices: (
     quiz_id: string | number | undefined,
-    token: string | undefined,
+    token: string | undefined
   ) => {
     const config = {
       method: 'GET',
@@ -48,21 +63,14 @@ const LessonApi = {
     };
     return instance.request(config);
   },
-  postAnswer: (
-    question_id: number,
-    quizlog_id: string | number | undefined,
-    choice_id: number,
-    token: string | undefined
-  ) => {
+  submitAnswers: (answers: AnswersProps, token: string | undefined) => {
     const config = {
       method: 'POST',
-      url: `question/answer`,
-      params: {
-        question_id,
-        quizlog_id,
-        choice_id,
+      url: `save-all-answers`,
+      data: answers,
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      headers: { Authorization: `Bearer ${token}` },
     };
     return instance.request(config);
   },

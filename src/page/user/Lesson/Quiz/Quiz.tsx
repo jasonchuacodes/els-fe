@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
-import LessonApi from '../../../../api/LessonApi';
+import LessonApi, { AnswersProps } from '../../../../api/LessonApi';
 import ReactPaginate from 'react-paginate';
+import SubmissionModal from '../../../../components/SubmissionModal/SubmissionModal';
 
 const Quiz = () => {
   const token = Cookies.get('access_token');
@@ -10,11 +11,18 @@ const Quiz = () => {
   const quizlog_id = JSON.parse(Cookies.get('quizlog_id') || '{}');
 
   const [questions, setQuestions] = useState<any>([]);
-  const [answers, setAnswers] = useState<any>([]);
+  const [totalQuestions, setTotalQuestions] = useState<number>();
+  const [quiz, setQuiz] = useState<any>();
+  const [answers, setAnswers] = useState<AnswersProps>([]);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     LessonApi.fetchQuestionsWithChoices(quiz_id, token).then((res) => {
       setQuestions(res.data);
+      setTotalQuestions(res.data.length)
+    });
+    LessonApi.fetchQuiz(quiz_id, token).then((res) => {
+      setQuiz(res.data);
     });
   }, [quiz_id]);
 
@@ -46,13 +54,15 @@ const Quiz = () => {
         (obj: any) => obj.question_id === choice.question_id
       );
       answers[index].choice_id = choice.id;
-      setAnswers( (
-        current: {
-          choice_id: number;
-          quizlog_id: number;
-          question_id: number;
-        }[]
-        ) => [...current])
+      setAnswers(
+        (
+          current: {
+            choice_id: number;
+            quizlog_id: number;
+            question_id: number;
+          }[]
+        ) => [...current]
+      );
     } else {
       setAnswers(
         (
@@ -71,29 +81,33 @@ const Quiz = () => {
         ]
       );
     }
-  }
+  };
 
   useEffect(() => {
-    console.table(answers);
-    
-    Cookies.set('answers', JSON.stringify(answers))
-  }, [answers])
- 
+    if(answers.length === totalQuestions) {
+      setIsShowModal(true);
+    }
+    Cookies.set('answers', JSON.stringify(answers));
+  }, [answers]);
+
   return (
     <>
-      <div className="flex flex-col items-center">
+      <SubmissionModal setIsShowModal={setIsShowModal} isShowModal={isShowModal} answers={answers} />
+
+      <div>
+        <div className="text-lg font-bold mb-5">LESSON - {quiz?.title}</div>
         <div className="mb-5">
           {currentItems?.map((question: any) => {
             return (
-              <div className="" key={question.id}>
-                <div>{question.question}</div>
-                <div>
+              <div className='mx-auto w-1/2 flex justify-evenly' key={question.id}>
+                <div className='bg-gray-100 flex w-full items-center justify-center rounded'>{question.question}</div>
+                <div className='p-5 rounded'>
                   {question.choices.map((choice: any) => {
                     return (
                       <div key={choice.id}>
                         <button
                           onClick={() => handleSetChoice(choice)}
-                          className={`border-2 rounded mx-2 my-2`}
+                          className={`border-2 w-20 py-2 rounded mx-2 my-2 ${answers.find(obj => obj.choice_id === choice.id) && 'bg-green-200'}`}
                         >
                           {choice.choice}
                         </button>
@@ -106,13 +120,13 @@ const Quiz = () => {
           })}
         </div>
         <ReactPaginate
-          className="flex w-1/3 justify-between"
+          className="flex w-1/2 mx-auto justify-around"
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel="NEXT"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< previous"
+          previousLabel="BACK"
         />
       </div>
     </>
