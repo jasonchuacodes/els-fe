@@ -7,11 +7,11 @@ import { UserContext, UserContextType } from '../../../context/UserContext';
 const Dashboard = () => {
   const userData = (Cookies.get('user') && JSON.parse(Cookies.get('user') || '{}'));
   const image = require('../../../assets/images/man.jpg');
-  const { users, fetchUsers } = useContext(UserContext) as UserContextType;
+  // const { users, fetchUsers } = useContext(UserContext) as UserContextType;
 
-  useEffect(() => {
-    fetchUsers();
-  }, [])
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, [])
 
   return (
     <>
@@ -24,7 +24,7 @@ const Dashboard = () => {
           <div className="font-bold italic mb-5">People</div>
           <div className="border w-full my-2"></div>
 
-          {users?.map((user: any) => {
+          {/* {users?.map((user: any) => {
             return (
               <div key={user.id}>
                 <Link to={`/profile/${user.id}`}>
@@ -32,7 +32,7 @@ const Dashboard = () => {
                 </Link>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
     </>

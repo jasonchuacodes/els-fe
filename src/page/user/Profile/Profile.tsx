@@ -50,7 +50,7 @@ const Profile = () => {
         setIsFollowing(res.data)
       })
     }
-  }, [id]);
+  }, [id, isFollowing]);
 
   return (
     <>

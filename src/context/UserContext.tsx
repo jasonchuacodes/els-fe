@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { createContext, useEffect } from 'react';
-import { NumericLiteral } from 'typescript';
+import React, { createContext } from 'react';
 import FollowsApi from '../api/FollowsApi';
 import UserApi from '../api/UserApi';
 
@@ -64,7 +63,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const isFollowing = (id: number, token:string) => {
     FollowsApi.isFollowing(id, token)
   }
-
 
   const follow = (id?: number, token?: string) => {
     FollowsApi.follow(id, token);

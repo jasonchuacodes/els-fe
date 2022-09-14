@@ -8,6 +8,9 @@ import Profile from '../page/user/Profile/Profile';
 import AdminPage from '../page/admin/AdminPage/AdminPage';
 import ErrorPage from '../page/public/ErrorPage';
 import Dashboard from '../page/user/Dashboard/Dashboard';
+import Category from '../page/user/Lesson/Category/Category';
+import Quiz from '../page/user/Lesson/Quiz/Quiz';
+import Results from '../components/ResultsCard/Results';
 
 const RouteList = () => {
   return (
@@ -23,6 +26,9 @@ const RouteList = () => {
             <Route path="/" element={<Home />}></Route>
             <Route path="profile/:id" element={<Profile />}></Route>
             <Route path="dashboard" element={<Dashboard />}></Route>
+            <Route path="category" element={<Category />}></Route>
+            <Route path="quiz" element={<Quiz />}></Route>
+            <Route path=":quizlogId/results" element={<Results />}></Route>
           </Route>
         </Route>
 
