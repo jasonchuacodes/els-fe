@@ -18,10 +18,7 @@ const SubmissionModal = ({
   const token = Cookies.get('access_token');
 
   const handleSubmit = () => {
-    
-
     LessonApi.submitAnswers(answers, token);
-    
     navigate(`/${quizlogId}/results`);
   };
   const handleCancel = () => {
