@@ -15,8 +15,6 @@ const DashboardCard = ({user, image} : IDashboardCard) => {
           <img className="w-20 h-20 rounded-full mr-5 " src={image} alt="man.jpg"  />
           <div className="">
             <div className='font-bold my-2'>{user?.first_name} {user?.last_name}</div>
-            <div className="text-sm">Learned 20 words</div>
-            <div className="text-sm">Learned 5 lessons</div>
           </div>
         </div>
     </div>

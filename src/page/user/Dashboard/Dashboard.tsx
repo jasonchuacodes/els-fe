@@ -5,14 +5,7 @@ import ActivityApi from '../../../api/ActivityApi';
 import DashboardCard from '../../../components/DashboardCard/DashboardCard';
 import { UserContext, UserContextType } from '../../../context/UserContext';
 import timeSince from '../../../utilities/timeSince';
-
-export interface IActivity {
-    id: number
-    activitiable_id: number,
-    activitiable_type: string,
-    activity: string,
-    created_at: string,
-}
+import { IActivity } from '../../../api/ActivityApi';
 
 const Dashboard = () => {
   const token = Cookies.get('access_token');

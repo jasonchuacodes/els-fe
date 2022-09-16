@@ -1,5 +1,13 @@
 import instance from "./instance";
 
+export interface IActivity {
+  id: number
+  activitiable_id: number,
+  activitiable_type: string,
+  activity: string,
+  created_at: string,
+}
+
 const ActivityApi = {
   fetchUserActivities: (user_id: number, token?: string) => {
     const config = {
