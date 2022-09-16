@@ -16,7 +16,7 @@ function Register() {
     last_name: '',
     email: '',
     password: '',
-    confirm_password: '',
+    password_confirmation: '',
   });
   const [errors, setErrors] = useState<IErrors | null>(null);
 
@@ -122,10 +122,10 @@ function Register() {
             </div>
             <input
               className="indent-2 mb-4 border-2 rounded w-full"
-              name="confirm_password"
+              name="password_confirmation"
               type="password"
               placeholder="Confirm Password"
-              value={params.confirm_password}
+              value={params.password_confirmation}
               onChange={handleChange}
             />
 

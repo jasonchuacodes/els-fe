@@ -8,17 +8,19 @@ const SubmissionModal = ({
   isShowModal,
   answers,
   quizlogId,
+  quizId,
 }: {
   setIsShowModal: (value: boolean) => void;
   isShowModal: boolean;
-  answers: AnswersProps;
+  answers: AnswersProps[];
   quizlogId: number;
+  quizId: number;
 }) => {
   const navigate = useNavigate();
   const token = Cookies.get('access_token');
 
   const handleSubmit = () => {
-    LessonApi.submitAnswers(answers, token);
+    LessonApi.submitAnswers(quizId, answers, token);
     navigate(`/${quizlogId}/results`);
   };
   const handleCancel = () => {

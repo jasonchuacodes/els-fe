@@ -6,7 +6,7 @@ import UserApi from '../api/UserApi';
 export interface UserContextType {
   authUser: UserDataType;
   user: UserDataType;
-  users?: UsersDataType;
+  users: UsersDataType;
   userData?: UserDataType;
   token?: string | undefined;
   setToken?: any;
@@ -25,7 +25,7 @@ export type UserDataType = {
   email?: string;
   email_verified_at?: string;
   is_admin?: number | boolean;
-  avatar?: string | null;
+  avatar?: string;
   created_at?: string;
   updated_at?: string;
 };
@@ -37,7 +37,7 @@ export type UsersDataType = {
   email?: string;
   email_verified_at?: string;
   is_admin?: number | boolean;
-  avatar?: string | null;
+  avatar?: string;
   created_at?: string;
   updated_at?: string;
 }[];
