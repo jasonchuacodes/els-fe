@@ -34,7 +34,7 @@ const ProfileCard = ({ authUser, user,  image, followers, followings , isFollowi
         <img
           className="w-40 h-40 rounded-full mb-5"
           src={image}
-          alt="man.jpg"
+          alt="avatar.jpg"
         />
         <div className="mb-5">
           {

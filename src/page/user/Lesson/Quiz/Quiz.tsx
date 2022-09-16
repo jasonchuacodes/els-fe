@@ -1,19 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import LessonApi, { AnswersProps } from '../../../../api/LessonApi';
 import SubmissionModal from '../../../../components/SubmissionModal/SubmissionModal';
 
 const Quiz = () => {
-  const {pathname} = useLocation();
   const token = Cookies.get('access_token');
   const quiz_id = JSON.parse(Cookies.get('quiz_id') || '{}');
   const quizlog_id = JSON.parse(Cookies.get('quizlog_id') || '{}');
 
   const [questions, setQuestions] = useState<any>([]);
   const [quiz, setQuiz] = useState<any>();
-  const [answers, setAnswers] = useState<AnswersProps>([]);
+  const [answers, setAnswers] = useState<AnswersProps[]>([]);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   
@@ -68,7 +66,7 @@ const Quiz = () => {
   };
 
   const handleNext = () => {
-    Cookies.set('answers', JSON.stringify(answers), {path: ''});
+    Cookies.set('answers', JSON.stringify(answers));
 
     if(questionIndex < questions.length - 1) {
       setQuestionIndex(questionIndex + 1)
@@ -83,7 +81,7 @@ const Quiz = () => {
       setQuestionIndex(questionIndex - 1)
     }
   }
-
+  
   return (
     <>
       <SubmissionModal
@@ -91,6 +89,7 @@ const Quiz = () => {
         setIsShowModal={setIsShowModal}
         isShowModal={isShowModal}
         answers={answers}
+        quizId={quiz_id}
       />
 
       <div>
