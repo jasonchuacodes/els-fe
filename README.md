@@ -2,7 +2,16 @@
 
 This ELS Project is a Learning Management System built to showcase what I have learned during the training phase in Sun Asterisk.
 
-The 
+
+## Built with
+* Javascript 
+* ReactJS
+* Axios
+* TailwindCSS
+* JS Cookies
+
+Some of the notable learnings that I had in creating this project is managing state with ReactContext, consuming REST API using axios, and creating Javascript logic in order to display dynamic content.
+
 ## Description
 
 The main functionalities that are implemented in the LMS app are the following:
