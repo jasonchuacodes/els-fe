@@ -28,6 +28,9 @@ const Dashboard = () => {
     ActivityApi.fetchAllUsersActivities(token).then(res => {
       setAllActivities(res.data)
     })
+
+    console.log(users);
+    
   }, [])
 
   return (
